@@ -13,7 +13,7 @@ contract Liquidator {
     address constant kaaveEthAddress = 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;
     address constant lendingPoolAddressProvider = 0x24a42fD28C976A61Df5D00D0599C34c4f90748c8; // Aave market - mainnet
 
-    function myLiquidationFunction(
+    function myLiquidationFunction() external payable {
         address _collateral, 
         address _reserve,
         address _user,
@@ -24,27 +24,27 @@ contract Liquidator {
     {
         ILendingPoolAddressesProvider addressProvider = ILendingPoolAddressesProvider(lendingPoolAddressProvider);
 
-        if (_reserve != aaveEthAddress) {
+        if (_reserve != kaaveEthAddress) {
           require(IERC20(_reserve).approve(addressProvider.getLendingPoolCore(), _purchaseAmount), "Approval error");
         }
     
         ILendingPool lendingPool = ILendingPool(addressProvider.getLendingPool());
         
         // Assumes this contract already has `_purchaseAmount` of `_reserve`.
-        lendingPool.liquidationCall{value: _reserve == aaveEthAddress ? _purchaseAmount : 0}(_collateral, _reserve, _user, _purchaseAmount, _receiveaToken);
+        Kaave.preempt{value: _reserve == aaveEthAddress ? _purchaseAmount : 0}(_collateral, _reserve, _user, _purchaseAmount, _receiveaToken);
     }
 }
-contract liquidator {
 
 
-function jitu => {
+
+function jitu => () {
  let _collateralAsset = collateralAsset;
  let _debtAsset = debtAsset;
  let _user = msg.sender;
  let _debt = debtToCover;
  let _recieveA = bool;
 
- preempt(this.collateralAsset , this.debtAsset, this.user, This.debt , recieveA)
+ preempt.push(this.collateralAsset , this.debtAsset, this.user, This.debt , recieveA);
  
  
  
